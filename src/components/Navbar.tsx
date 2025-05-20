@@ -56,13 +56,13 @@ const Navbar = () => {
           <span className="text-xl font-bold font-heading">PolicyVista</span>
         </NavLink>
         
-        {/* Mobile menu button */}
-        <button className="lg:hidden focus:outline-none" onClick={toggleMenu} aria-label="Toggle menu">
+        {/* Mobile menu button - only visible on mobile */}
+        <button className="md:hidden focus:outline-none" onClick={toggleMenu} aria-label="Toggle menu">
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center justify-end flex-1 gap-8">
+        {/* Desktop Navigation - always visible on desktop */}
+        <div className="hidden md:flex items-center justify-end flex-1 gap-8">
           <NavigationMenu>
             <NavigationMenuList className="gap-1">
               {navItems.map((item) => (
@@ -96,7 +96,7 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         <div 
-          className={`fixed inset-0 bg-white/95 backdrop-blur-sm z-50 lg:hidden transition-transform duration-300 ease-in-out ${
+          className={`fixed inset-0 bg-white/95 backdrop-blur-sm z-50 md:hidden transition-transform duration-300 ease-in-out ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
