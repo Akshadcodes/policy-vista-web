@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -44,7 +45,10 @@ const Navbar = () => {
   ];
 
   return (
-    <nav 
+    <motion.nav 
+      initial={{ y: -10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 
       ${isScrolled 
         ? 'bg-white/95 backdrop-blur-sm shadow-md py-3' 
@@ -52,53 +56,86 @@ const Navbar = () => {
     >
       <div className="container-custom flex items-center justify-between">
         <NavLink to="/" className="flex items-center gap-2 text-primary">
-          <Shield className="h-8 w-8" />
-          <span className="text-xl font-bold font-heading">PolicyVista</span>
+          <motion.div
+            whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+            transition={{ duration: 0.5 }}
+          >
+            <Shield className="h-8 w-8" />
+          </motion.div>
+          <motion.span 
+            initial={{ opacity: 0, x: -5 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl font-bold font-heading"
+          >
+            PolicyVista
+          </motion.span>
         </NavLink>
         
         {/* Mobile menu button - only visible on mobile */}
-        <button className="md:hidden focus:outline-none" onClick={toggleMenu} aria-label="Toggle menu">
+        <motion.button 
+          className="md:hidden focus:outline-none" 
+          onClick={toggleMenu} 
+          aria-label="Toggle menu"
+          whileTap={{ scale: 0.9 }}
+        >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        </motion.button>
 
         {/* Desktop Navigation - always visible on desktop */}
         <div className="hidden md:flex items-center justify-end flex-1 gap-8">
           <NavigationMenu>
             <NavigationMenuList className="gap-1">
-              {navItems.map((item) => (
+              {navItems.map((item, index) => (
                 <NavigationMenuItem key={item.name}>
                   <NavigationMenuLink asChild>
-                    <NavLink
-                      to={item.path}
-                      className={({ isActive }) => 
-                        `px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                          isActive 
-                            ? "text-primary font-semibold" 
-                            : "text-foreground hover:text-primary hover:bg-primary/5"
-                        }`
-                      }
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index }}
                     >
-                      {item.name}
-                    </NavLink>
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) => 
+                          `px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                            isActive 
+                              ? "text-primary font-semibold" 
+                              : "text-foreground hover:text-primary hover:bg-primary/5"
+                          }`
+                        }
+                      >
+                        {item.name}
+                      </NavLink>
+                    </motion.div>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}
             </NavigationMenuList>
           </NavigationMenu>
           
-          <Button 
-            size="lg" 
-            className="bg-primary hover:bg-primary/90 shadow-sm transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+            whileHover={{ scale: 1.05 }}
           >
-            Get a Quote
-          </Button>
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 shadow-sm transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]"
+            >
+              Get a Quote
+            </Button>
+          </motion.div>
         </div>
 
         {/* Mobile Navigation */}
-        <div 
-          className={`fixed inset-0 bg-white/95 backdrop-blur-sm z-50 md:hidden transition-transform duration-300 ease-in-out ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
+        <motion.div 
+          className={`fixed inset-0 bg-white/95 backdrop-blur-sm z-50 md:hidden ${
+            isOpen ? 'block' : 'hidden'
           }`}
+          initial={{ x: "100%" }}
+          animate={{ x: isOpen ? 0 : "100%" }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
           <div className="p-5 flex flex-col h-full">
             <div className="flex justify-between items-center">
@@ -106,36 +143,54 @@ const Navbar = () => {
                 <Shield className="h-8 w-8" />
                 <span className="text-xl font-bold">PolicyVista</span>
               </NavLink>
-              <button onClick={toggleMenu} className="focus:outline-none" aria-label="Close menu">
+              <motion.button 
+                onClick={toggleMenu} 
+                className="focus:outline-none" 
+                aria-label="Close menu"
+                whileTap={{ scale: 0.9 }}
+              >
                 <X size={24} />
-              </button>
+              </motion.button>
             </div>
             <div className="flex flex-col gap-5 mt-16">
-              {navItems.map((item) => (
-                <NavLink
+              {navItems.map((item, index) => (
+                <motion.div
                   key={item.name}
-                  to={item.path}
-                  className={({ isActive }) => 
-                    `text-xl py-2 border-b border-gray-100 ${
-                      isActive ? "text-primary font-medium" : "text-foreground"
-                    }`
-                  }
-                  onClick={toggleMenu}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 * index }}
                 >
-                  {item.name}
-                </NavLink>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) => 
+                      `text-xl py-2 border-b border-gray-100 ${
+                        isActive ? "text-primary font-medium" : "text-foreground"
+                      }`
+                    }
+                    onClick={toggleMenu}
+                  >
+                    {item.name}
+                  </NavLink>
+                </motion.div>
               ))}
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 mt-8 shadow-sm"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Get a Quote
-              </Button>
+                <Button 
+                  size="lg" 
+                  className="bg-primary hover:bg-primary/90 mt-8 shadow-sm w-full"
+                >
+                  Get a Quote
+                </Button>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
