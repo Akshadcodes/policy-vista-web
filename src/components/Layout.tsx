@@ -4,7 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import WhatsAppButton from './WhatsAppButton';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = () => {
   const location = useLocation();
@@ -15,19 +15,26 @@ const Layout = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-orange-50/50 to-white">
       <Navbar />
 
-      <motion.main
-        key={location.pathname}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.3 }}
-        className="flex-grow pt-24"
-      >
-        <Outlet />
-      </motion.main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={location.pathname}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 260, 
+            damping: 20, 
+            duration: 0.3 
+          }}
+          className="flex-grow pt-24"
+        >
+          <Outlet />
+        </motion.main>
+      </AnimatePresence>
 
       <WhatsAppButton />
       <Footer />
