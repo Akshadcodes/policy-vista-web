@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -33,23 +32,10 @@ export const SparklesCore = ({
 }: SparklesProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
-  const [particles, setParticles] = useState<
-    Array<{
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-      fadeRate: number;
-      color: string;
-      colorIndex?: number;
-      colorTransition?: number;
-    }>
-  >([]);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [devicePixelRatio, setDevicePixelRatio] = useState(1);
+  const particlesRef = useRef<any[]>([]);
 
   const rainbowColors = [
     "#FF5E5B", // Red
@@ -115,7 +101,6 @@ export const SparklesCore = ({
   const generateParticles = (width: number, height: number) => {
     const newParticles = [];
     const particleCount = Math.floor((width * height) / 10000 * particleDensity);
-    
     for (let i = 0; i < particleCount; i++) {
       newParticles.push({
         x: Math.random() * width,
@@ -130,74 +115,56 @@ export const SparklesCore = ({
         colorTransition: Math.random() * 0.01,
       });
     }
-    
-    setParticles(newParticles);
+    particlesRef.current = newParticles;
   };
 
   // Animation frame to update and draw particles
   useEffect(() => {
     if (!context || !width || !height) return;
-
     let animationFrameId: number;
-    
     const animate = () => {
       context.clearRect(0, 0, width, height);
-      
-      // Draw background
       if (background !== "transparent") {
         context.fillStyle = background;
         context.fillRect(0, 0, width, height);
       }
-      
-      // Update and draw particles
-      const updatedParticles = [...particles];
-      
+      const updatedParticles = particlesRef.current;
       updatedParticles.forEach((particle, i) => {
-        // Move particle
         particle.x += particle.speedX * speed;
         particle.y += particle.speedY * speed;
-        
-        // Make particles twinkle by changing opacity
         particle.opacity += Math.random() * particle.fadeRate * 2 - particle.fadeRate;
         particle.opacity = Math.max(0.1, Math.min(particle.opacity, 0.5));
-        
-        // Rainbow effect - slowly transition between colors
         if (rainbow && particle.colorIndex !== undefined && particle.colorTransition) {
           particle.colorIndex = (particle.colorIndex + particle.colorTransition) % rainbowColors.length;
           particle.color = rainbowColors[Math.floor(particle.colorIndex)];
         }
-        
-        // Handle particles that go out of bounds
         if (particle.x < 0) particle.x = width;
         if (particle.x > width) particle.x = 0;
         if (particle.y < 0) particle.y = height;
         if (particle.y > height) particle.y = 0;
-        
-        // Draw the particle
         context.beginPath();
         context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        
-        // Set color with opacity
         const color = particle.color.startsWith('#') 
           ? particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0')
           : particle.color.replace(')', `,${particle.opacity})`).replace('rgb', 'rgba');
-        
         context.fillStyle = color;
         context.fill();
-        
-        updatedParticles[i] = particle;
       });
-      
-      setParticles(updatedParticles);
       animationFrameId = requestAnimationFrame(animate);
     };
-    
     animate();
-    
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [context, particles, width, height, background, rainbow, particleColor, speed]);
+  }, [context, width, height, background, rainbow, particleColor, speed]);
+
+  // Regenerate particles on resize or prop change
+  useEffect(() => {
+    if (width && height) {
+      generateParticles(width, height);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, height, particleDensity, minSize, maxSize, particleSpeed, rainbow, particleColor]);
 
   return (
     <div className={cn("relative w-full h-full", className)} id={id}>

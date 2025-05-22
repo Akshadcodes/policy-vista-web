@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -68,10 +67,7 @@ const Home = () => {
         <div className="container-custom relative z-10">
           <div className="flex flex-col items-center text-center mb-12">
             <animated.div style={logoAnimation} className="mb-8">
-              {/* Placeholder for SKIS logo */}
-              <div className="w-32 h-32 bg-gradient-to-br from-orange-400 via-red-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-4xl font-bold text-white">SKIS</span>
-              </div>
+              <img src="/SKIS-uploads/logo.png" alt="SKIS - SHRI KRISHNA INSURANCE SERVICE Logo" className="w-32 h-32 object-contain rounded-full shadow-lg bg-white" />
             </animated.div>
             
             <animated.h1 style={headlineAnimation} className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700">
