@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
@@ -220,10 +219,10 @@ const Services = () => {
               Contact us today to discuss your insurance needs and get a free quote.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button className="bg-white text-primary hover:bg-white/90" size="lg">
+              <Button className="bg-white text-primary hover:bg-white/90 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px]" size="lg">
                 Get a Free Quote
               </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-primary" size="lg" asChild>
+              <Button className="bg-white text-primary hover:bg-white/90 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px]" size="lg" asChild>
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>

@@ -149,11 +149,14 @@ const Navbar = () => {
           </motion.div>
         </div>
 
+        {/* Mobile Navigation Overlay */}
+        {isOpen && (
+          <div className="fixed inset-0 z-[99] bg-white/95 dark:bg-neutral-900/95 transition-colors duration-300" />
+        )}
         {/* Mobile Navigation */}
         <motion.div 
-          className={`fixed inset-0 bg-gradient-to-br from-orange-50 to-white backdrop-blur-sm z-50 md:hidden ${
-            isOpen ? 'block' : 'hidden'
-          }`}
+          className={`fixed inset-0 z-[100] md:hidden bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-colors duration-300 ${isOpen ? 'block' : 'hidden'}`}
+          style={{ opacity: 1 }}
           initial={{ x: "100%" }}
           animate={{ x: isOpen ? 0 : "100%" }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -176,6 +179,7 @@ const Navbar = () => {
                 <X size={24} className="text-orange-500" />
               </motion.button>
             </div>
+            <div className="border-b border-gray-200 dark:border-neutral-700 my-4" />
             <div className="flex flex-col gap-5 mt-16">
               {navItems.map((item, index) => (
                 <motion.div
@@ -184,18 +188,19 @@ const Navbar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 * index }}
                   whileHover={{ x: 10 }}
+                  className="rounded-xl bg-white dark:bg-neutral-800 shadow-md transition-colors duration-200"
                 >
                   <NavLink
                     to={item.path}
                     className={({ isActive }) => 
-                      `text-xl py-2 border-b border-orange-100 flex items-center gap-3 ${
-                        isActive ? "text-orange-500 font-medium" : "text-foreground"
+                      `text-xl py-2 px-4 border-b border-orange-100 flex items-center gap-3 rounded-xl transition-colors duration-200 ${
+                        isActive ? "text-orange-500 font-medium" : "text-neutral-900 dark:text-white"
                       }`
                     }
                     onClick={toggleMenu}
                   >
                     <motion.div 
-                      className={`p-2 rounded-full ${isOpen ? item.color : ''} ${isOpen ? "bg-white/50" : ''}`}
+                      className={`p-2 rounded-full ${isOpen ? item.color : ''} ${isOpen ? "bg-white/80 dark:bg-neutral-700" : ''}`}
                       initial={{ rotate: 0 }}
                       animate={{ rotate: [0, -10, 10, 0] }}
                       transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}

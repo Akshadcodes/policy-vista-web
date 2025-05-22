@@ -224,8 +224,7 @@ const Home = () => {
                 Get a Free Quote
               </Button>
               <Button 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-orange-600 transition-all duration-300" 
+                className="bg-white text-orange-600 hover:bg-white/90 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px]" 
                 size="lg"
               >
                 <Link to="/contact">Contact Us</Link>
