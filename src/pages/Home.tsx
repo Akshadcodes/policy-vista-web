@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import SectionHeading from '@/components/SectionHeading';
 import ServiceCard from '@/components/ServiceCard';
 import TestimonialCard from '@/components/TestimonialCard';
 import { useSpring, animated, useTrail } from 'react-spring';
-import { AnimatedWords, FadeIn, SlideIn, FloatAnimation } from '@/hooks/use-text-animation';
+import { AnimatedWords, FadeIn, SlideIn, FloatingAnimation } from '@/hooks/use-text-animation';
 import { BackgroundGradientAnimation } from '@/components/ui/gradient-animations';
 import { WavyBackground } from '@/components/ui/wavy-background';
 import { HeroParallax } from '@/components/ui/hero-parallax';
@@ -109,7 +110,7 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-12">
             {categoryTrail.map((style, i) => (
               <animated.div key={i} style={style}>
-                <FloatAnimation 
+                <FloatingAnimation 
                   className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   duration={3 + i * 0.5}
                   distance={10}
@@ -118,7 +119,7 @@ const Home = () => {
                     {insuranceCategories[i].icon}
                   </div>
                   <h3 className="font-medium">{insuranceCategories[i].title}</h3>
-                </FloatAnimation>
+                </FloatingAnimation>
               </animated.div>
             ))}
           </div>
