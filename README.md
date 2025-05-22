@@ -1,73 +1,87 @@
-# Welcome to your SKIS - SHRI KRISHNA INSURANCE SERVICE project
+# SKIS - SHRI KRISHNA INSURANCE SERVICE Website
 
-## Project info
+This repository contains the code for the SKIS - SHRI KRISHNA INSURANCE SERVICE website, a modern web application built with React and Vite.
 
-**URL**: https://skis-shrikrishnainsuranceservice.dev/projects/f25c94ba-2270-4f5e-bc47-de1a52c3e0a2
+## Getting Started
 
-## How can I edit this code?
+To get a local copy of the project up and running, follow these simple steps.
 
-There are several ways of editing your application.
+### Prerequisites
 
-**Use SKIS - SHRI KRISHNA INSURANCE SERVICE**
-
-Simply visit the [SKIS - SHRI KRISHNA INSURANCE SERVICE Project](https://skis-shrikrishnainsuranceservice.dev/projects/f25c94ba-2270-4f5e-bc47-de1a52c3e0a2) and start prompting.
-
-Changes made via SKIS - SHRI KRISHNA INSURANCE SERVICE will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in SKIS - SHRI KRISHNA INSURANCE SERVICE.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Make sure you have Node.js and npm installed. You can install them using nvm:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Or download directly from [nodejs.org](https://nodejs.org/).
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Installation
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+1. Clone the repository:
+   ```sh
+   git clone <YOUR_GIT_URL>
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd policy-vista-web # or the name of the cloned directory
+   ```
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+### Running the Project
+
+To start the development server:
+
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open your browser and visit `http://localhost:8080` (or the address shown in your terminal) to see the website.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev`: Starts the development server with hot module replacement.
+- `npm run build`: Builds the project for production to the `dist` folder.
+- `npm run build:dev`: Builds the project for development mode.
+- `npm run lint`: Runs ESLint to check for code quality issues.
+- `npm run preview`: Serves the production build locally for preview.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Technologies Used
 
-## What technologies are used for this project?
+This project utilizes a modern stack for building performant and maintainable web applications:
 
-This project is built with:
+- **Vite**: A fast build tool for frontend development.
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+- **Tailwind CSS**: A utility-first CSS framework for rapid styling.
+- **shadcn/ui**: A collection of reusable components built with Radix UI and Tailwind CSS.
+- **Framer Motion**: A library for production-ready animations.
+- **React Router DOM**: For declarative routing in React applications.
+- **Lucide React**: A collection of beautiful open-source icons.
+- **React Spring**: A spring-physics based animation library.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Deployment
 
-## How can I deploy this project?
+Instructions on how to deploy this project to your preferred hosting provider (e.g., Vercel, Netlify, GitHub Pages, etc.) will be added here in the future.
 
-Simply open [SKIS - SHRI KRISHNA INSURANCE SERVICE](https://skis-shrikrishnainsuranceservice.dev/projects/f25c94ba-2270-4f5e-bc47-de1a52c3e0a2) and click on Share -> Publish.
+## Project Structure
 
-## Can I connect a custom domain to my SKIS - SHRI KRISHNA INSURANCE SERVICE project?
+The main parts of the project are:
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.skis-shrikrishnainsuranceservice.dev/tips-tricks/custom-domain#step-by-step-guide)
+- `public/`: Static assets like images and the main HTML file.
+  - `SKIS-uploads/`: Directory for uploaded images, including the logo.
+- `src/`: Source code for the React application.
+  - `components/`: Reusable UI components.
+  - `hooks/`: Custom React hooks.
+  - `lib/`: Utility functions and configurations.
+  - `pages/`: React components for different pages of the website.
+  - `App.tsx`: The main application component.
+  - `main.tsx`: The entry point of the React application.
+- `vite.config.ts`: Vite build configuration.
+- `tailwind.config.ts`: Tailwind CSS configuration.
+- `package.json`: Project dependencies and scripts.
