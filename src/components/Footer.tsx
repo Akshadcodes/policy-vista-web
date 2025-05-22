@@ -7,19 +7,64 @@ import { FadeIn, SlideIn } from '@/hooks/use-text-animation';
 import { BackgroundGradientAnimation } from "@/components/ui/gradient-animations";
 import { SparklesCore } from "./ui/sparkles";
 
+// Array of vibrant gradient colors for icons
+const iconGradients = [
+  "from-pink-500 to-red-500",
+  "from-orange-500 to-amber-500",
+  "from-green-500 to-emerald-500",
+  "from-blue-500 to-cyan-500",
+  "from-purple-500 to-violet-500"
+];
+
+// Social media icons with colors
+const socialIcons = [
+  { Icon: Facebook, gradient: "from-blue-500 to-blue-700" },
+  { Icon: Twitter, gradient: "from-sky-400 to-blue-500" },
+  { Icon: Linkedin, gradient: "from-blue-600 to-blue-800" },
+  { Icon: Instagram, gradient: "from-pink-500 via-purple-500 to-orange-500" }
+];
+
+// Contact info with gradients
+const contactInfo = [
+  { 
+    Icon: MapPin, 
+    text: "123 Insurance Ave, Financial District, New York, NY 10001",
+    gradient: "from-red-500 to-pink-500",
+    animation: [0, 10, 0, -10, 0]
+  },
+  { 
+    Icon: Phone, 
+    text: "(123) 456-7890",
+    gradient: "from-green-500 to-emerald-500",
+    animation: [0, -10, 0, 10, 0]
+  },
+  { 
+    Icon: Mail, 
+    text: "contact@policyvista.com",
+    gradient: "from-blue-500 to-cyan-500",
+    animation: [0, 5, -5, 5, 0]
+  }
+];
+
 const Footer = () => {
+  // Generate a random gradient for animation
+  const getRandomGradient = () => {
+    return iconGradients[Math.floor(Math.random() * iconGradients.length)];
+  };
+
   return (
     <footer className="bg-gradient-to-b from-white to-orange-50 relative overflow-hidden">
-      {/* Sparkles effect */}
+      {/* Animated multicolor sparkles effect */}
       <div className="h-40 w-full absolute top-0 left-0 z-10 opacity-40">
         <SparklesCore
           id="footer-sparkles"
           background="transparent"
           minSize={0.6}
           maxSize={1.4}
-          particleColor="#f97316"
+          particleColor={["#f97316", "#fb923c", "#f59e0b", "#16a34a", "#0ea5e9", "#8b5cf6"]}
           particleDensity={100}
           speed={0.5}
+          rainbow={true}
           className="w-full h-full"
         />
       </div>
@@ -39,22 +84,37 @@ const Footer = () => {
                 className="bg-white bg-opacity-70 backdrop-blur-sm rounded-2xl p-6 shadow-soft border border-orange-100 h-full"
               >
                 <Link to="/" className="flex items-center gap-2 mb-4">
-                  <Shield className="h-7 w-7 text-orange-500" />
+                  <motion.div
+                    animate={{ 
+                      rotate: [0, 10, 0, -10, 0],
+                      scale: [1, 1.1, 1, 1.1, 1]
+                    }}
+                    transition={{ 
+                      duration: 5,
+                      repeat: Infinity,
+                      repeatDelay: 3
+                    }}
+                  >
+                    <Shield className="h-7 w-7 text-orange-500" />
+                  </motion.div>
                   <span className="text-xl font-bold font-heading text-orange-600">PolicyVista</span>
                 </Link>
                 <p className="text-gray-700 mb-6">
                   Providing trusted insurance consultation since 2005. Your protection is our priority.
                 </p>
                 <div className="flex space-x-4">
-                  {[Facebook, Twitter, Linkedin, Instagram].map((Icon, index) => (
+                  {socialIcons.map((socialIcon, index) => (
                     <motion.a 
                       key={index}
                       href="#" 
-                      className="bg-orange-100 p-2 rounded-full text-orange-500 hover:bg-orange-500 hover:text-white transition-colors"
-                      whileHover={{ y: -5 }}
+                      className={`bg-gradient-to-br ${socialIcon.gradient} p-2 rounded-full text-white hover:shadow-lg transition-all duration-300`}
+                      whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
                       whileTap={{ scale: 0.9 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index }}
                     >
-                      <Icon size={20} />
+                      <socialIcon.Icon size={20} />
                     </motion.a>
                   ))}
                 </div>
@@ -71,11 +131,11 @@ const Footer = () => {
                 <h3 className="text-lg font-bold mb-4 text-orange-600">Quick Links</h3>
                 <ul className="space-y-2">
                   {[
-                    { name: 'Home', path: '/' },
-                    { name: 'About Us', path: '/about' },
-                    { name: 'Our Services', path: '/services' },
-                    { name: 'Blog', path: '/blog' },
-                    { name: 'Contact Us', path: '/contact' }
+                    { name: 'Home', path: '/', color: "bg-red-400" },
+                    { name: 'About Us', path: '/about', color: "bg-blue-400" },
+                    { name: 'Our Services', path: '/services', color: "bg-green-400" },
+                    { name: 'Blog', path: '/blog', color: "bg-amber-400" },
+                    { name: 'Contact Us', path: '/contact', color: "bg-purple-400" }
                   ].map((item, index) => (
                     <motion.li 
                       key={index}
@@ -89,9 +149,16 @@ const Footer = () => {
                         className="text-gray-700 hover:text-orange-500 transition-colors flex items-center"
                       >
                         <motion.span 
-                          className="w-2 h-2 rounded-full bg-orange-300 mr-2"
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ repeat: Infinity, duration: 2, delay: index * 0.2 }}
+                          className={`w-2 h-2 rounded-full ${item.color} mr-2`}
+                          animate={{ 
+                            scale: [1, 1.5, 1],
+                            backgroundColor: ["#f87171", "#60a5fa", "#4ade80", "#fbbf24", "#c084fc"]
+                          }}
+                          transition={{ 
+                            repeat: Infinity, 
+                            duration: 3, 
+                            delay: index * 0.2 
+                          }}
                         />
                         {item.name}
                       </Link>
@@ -111,12 +178,12 @@ const Footer = () => {
                 <h3 className="text-lg font-bold mb-4 text-orange-600">Our Services</h3>
                 <ul className="space-y-2">
                   {[
-                    'Life Insurance',
-                    'Health Insurance',
-                    'Property Insurance',
-                    'Auto Insurance',
-                    'Business Insurance'
-                  ].map((service, index) => (
+                    { service: 'Life Insurance', color: "bg-pink-400" },
+                    { service: 'Health Insurance', color: "bg-blue-400" },
+                    { service: 'Property Insurance', color: "bg-green-400" },
+                    { service: 'Auto Insurance', color: "bg-amber-400" },
+                    { service: 'Business Insurance', color: "bg-purple-400" }
+                  ].map((item, index) => (
                     <motion.li 
                       key={index}
                       initial={{ x: -10, opacity: 0 }}
@@ -129,11 +196,18 @@ const Footer = () => {
                         className="text-gray-700 hover:text-orange-500 transition-colors flex items-center"
                       >
                         <motion.span 
-                          className="w-2 h-2 rounded-full bg-orange-300 mr-2"
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ repeat: Infinity, duration: 2, delay: index * 0.2 }}
+                          className={`w-2 h-2 rounded-full ${item.color} mr-2`}
+                          animate={{ 
+                            scale: [1, 1.5, 1],
+                            backgroundColor: ["#ec4899", "#3b82f6", "#22c55e", "#f59e0b", "#a855f7"]
+                          }}
+                          transition={{ 
+                            repeat: Infinity, 
+                            duration: 3, 
+                            delay: index * 0.2 
+                          }}
                         />
-                        {service}
+                        {item.service}
                       </Link>
                     </motion.li>
                   ))}
@@ -150,11 +224,7 @@ const Footer = () => {
               >
                 <h3 className="text-lg font-bold mb-4 text-orange-600">Contact Us</h3>
                 <div className="space-y-4">
-                  {[
-                    { Icon: MapPin, text: "123 Insurance Ave, Financial District, New York, NY 10001" },
-                    { Icon: Phone, text: "(123) 456-7890" },
-                    { Icon: Mail, text: "contact@policyvista.com" }
-                  ].map((item, index) => (
+                  {contactInfo.map((item, index) => (
                     <motion.div 
                       key={index}
                       className="flex items-start gap-3"
@@ -165,11 +235,15 @@ const Footer = () => {
                       whileHover={{ x: 5 }}
                     >
                       <motion.div
-                        animate={{ rotate: [0, 10, 0, -10, 0] }}
-                        transition={{ repeat: Infinity, duration: 3, delay: index }}
-                        className="bg-orange-100 p-1.5 rounded-full"
+                        animate={{ rotate: item.animation }}
+                        transition={{ 
+                          repeat: Infinity, 
+                          duration: 3, 
+                          delay: index 
+                        }}
+                        className={`bg-gradient-to-br ${item.gradient} p-1.5 rounded-full text-white`}
                       >
-                        <item.Icon className="h-5 w-5 text-orange-500" />
+                        <item.Icon className="h-5 w-5" />
                       </motion.div>
                       <span className="text-gray-700">{item.text}</span>
                     </motion.div>

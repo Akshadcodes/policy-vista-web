@@ -10,11 +10,12 @@ interface SparklesProps {
   background?: string;
   minSize?: number;
   maxSize?: number;
-  particleColor?: string;
+  particleColor?: string | string[];
   particleDensity?: number;
   particleSpeed?: number;
   speed?: number;
   children?: React.ReactNode;
+  rainbow?: boolean;
 }
 
 export const SparklesCore = ({
@@ -28,6 +29,7 @@ export const SparklesCore = ({
   particleDensity = 100,
   particleSpeed = 0.5,
   children,
+  rainbow = false,
 }: SparklesProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
@@ -40,11 +42,24 @@ export const SparklesCore = ({
       speedY: number;
       opacity: number;
       fadeRate: number;
+      color: string;
+      colorIndex?: number;
+      colorTransition?: number;
     }>
   >([]);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [devicePixelRatio, setDevicePixelRatio] = useState(1);
+
+  const rainbowColors = [
+    "#FF5E5B", // Red
+    "#FF9E43", // Orange
+    "#FFD166", // Yellow
+    "#06D6A0", // Green
+    "#118AB2", // Blue
+    "#7209B7", // Indigo
+    "#9D4EDD"  // Violet
+  ];
 
   // Initialize the canvas and context
   useEffect(() => {
@@ -86,6 +101,16 @@ export const SparklesCore = ({
     generateParticles(rect.width, rect.height);
   };
 
+  // Get a color for a particle
+  const getParticleColor = () => {
+    if (rainbow) {
+      return rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
+    } else if (Array.isArray(particleColor)) {
+      return particleColor[Math.floor(Math.random() * particleColor.length)];
+    }
+    return particleColor as string;
+  };
+
   // Generate particles based on density and dimensions
   const generateParticles = (width: number, height: number) => {
     const newParticles = [];
@@ -100,6 +125,9 @@ export const SparklesCore = ({
         speedY: (Math.random() - 0.5) * particleSpeed,
         opacity: 0.1 + Math.random() * 0.4,
         fadeRate: 0.005 + Math.random() * 0.01,
+        color: getParticleColor(),
+        colorIndex: rainbow ? Math.floor(Math.random() * rainbowColors.length) : 0,
+        colorTransition: Math.random() * 0.01,
       });
     }
     
@@ -133,6 +161,12 @@ export const SparklesCore = ({
         particle.opacity += Math.random() * particle.fadeRate * 2 - particle.fadeRate;
         particle.opacity = Math.max(0.1, Math.min(particle.opacity, 0.5));
         
+        // Rainbow effect - slowly transition between colors
+        if (rainbow && particle.colorIndex !== undefined && particle.colorTransition) {
+          particle.colorIndex = (particle.colorIndex + particle.colorTransition) % rainbowColors.length;
+          particle.color = rainbowColors[Math.floor(particle.colorIndex)];
+        }
+        
         // Handle particles that go out of bounds
         if (particle.x < 0) particle.x = width;
         if (particle.x > width) particle.x = 0;
@@ -142,7 +176,13 @@ export const SparklesCore = ({
         // Draw the particle
         context.beginPath();
         context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        context.fillStyle = `${particleColor}${Math.floor(particle.opacity * 255).toString(16).padStart(2, '0')}`;
+        
+        // Set color with opacity
+        const color = particle.color.startsWith('#') 
+          ? particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0')
+          : particle.color.replace(')', `,${particle.opacity})`).replace('rgb', 'rgba');
+        
+        context.fillStyle = color;
         context.fill();
         
         updatedParticles[i] = particle;
@@ -157,7 +197,7 @@ export const SparklesCore = ({
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [context, particles, width, height, background, particleColor, speed]);
+  }, [context, particles, width, height, background, rainbow, particleColor, speed]);
 
   return (
     <div className={cn("relative w-full h-full", className)} id={id}>
@@ -171,4 +211,3 @@ export const SparklesCore = ({
     </div>
   );
 };
-
