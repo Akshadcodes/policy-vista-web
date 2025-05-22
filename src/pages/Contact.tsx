@@ -3,26 +3,14 @@ import { Phone, Mail, MapPin } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import ContactForm from '@/components/ContactForm';
 import { WavyBackground } from '@/components/ui/wavy-background';
-import { SparklesCore } from '@/components/ui/sparkles';
 
 const Contact = () => {
   return (
     <>
-      {/* Hero Section with Wavy Background and Sparkles */}
+      {/* Hero Section with Wavy Background */}
       <WavyBackground className="py-20 lg:py-28">
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="relative h-20 w-full mb-4">
-              <SparklesCore
-                className="absolute inset-0 w-full h-full"
-                particleColor={["#f97316", "#fb923c", "#f59e0b", "#16a34a", "#0ea5e9", "#8b5cf6"]}
-                particleDensity={120}
-                speed={0.7}
-                minSize={0.8}
-                maxSize={2}
-                rainbow={true}
-              />
-            </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 text-transparent bg-clip-text animate-pulse">Contact Us</h1>
             <p className="text-xl text-muted-foreground animate-fade-in">
               Have questions or need assistance? We're here to help.

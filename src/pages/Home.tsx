@@ -10,13 +10,14 @@ import { AnimatedWords, FadeIn, SlideIn, FloatingAnimation } from '@/hooks/use-t
 import { BackgroundGradientAnimation } from '@/components/ui/gradient-animations';
 import { WavyBackground } from '@/components/ui/wavy-background';
 import { HeroParallax } from '@/components/ui/hero-parallax';
+import { motion } from 'framer-motion';
 
 const insuranceCategories = [
-  { icon: <Car className="h-12 w-12 text-orange-500" />, title: "Auto Insurance", color: "from-orange-400 to-red-600" },
-  { icon: <LifeBuoy className="h-12 w-12 text-blue-500" />, title: "Health Insurance", color: "from-blue-400 to-purple-600" },
-  { icon: <HomeIcon className="h-12 w-12 text-green-500" />, title: "Home Insurance", color: "from-green-400 to-emerald-600" },
-  { icon: <Plane className="h-12 w-12 text-violet-500" />, title: "Travel Insurance", color: "from-violet-400 to-fuchsia-600" },
-  { icon: <Ship className="h-12 w-12 text-cyan-500" />, title: "Marine Insurance", color: "from-cyan-400 to-sky-600" }
+  { icon: Car, title: "Auto Insurance", color: "from-orange-400 to-red-600" },
+  { icon: LifeBuoy, title: "Health Insurance", color: "from-blue-400 to-purple-600" },
+  { icon: HomeIcon, title: "Home Insurance", color: "from-green-400 to-emerald-600" },
+  { icon: Plane, title: "Travel Insurance", color: "from-violet-400 to-fuchsia-600" },
+  { icon: Ship, title: "Marine Insurance", color: "from-cyan-400 to-sky-600" }
 ];
 
 const Home = () => {
@@ -112,7 +113,7 @@ const Home = () => {
                   distance={10}
                 >
                   <div className={`p-4 mb-3 rounded-full bg-gradient-to-br ${insuranceCategories[i].color}`}>
-                    {insuranceCategories[i].icon}
+                    {React.createElement(insuranceCategories[i].icon, { className: "h-12 w-12 text-white" })}
                   </div>
                   <h3 className="font-medium">{insuranceCategories[i].title}</h3>
                 </FloatingAnimation>
@@ -133,17 +134,17 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: <ShieldCheck className="h-8 w-8 text-orange-500" />,
+                icon: ShieldCheck,
                 title: "Complete Protection",
                 description: "Our policies provide extensive coverage to ensure you're protected against all potential risks."
               },
               {
-                icon: <FileCheck className="h-8 w-8 text-orange-500" />,
+                icon: FileCheck,
                 title: "Fast Claims Processing",
                 description: "Our efficient claims process ensures quick payments without unnecessary hassle."
               },
               {
-                icon: <Users className="h-8 w-8 text-orange-500" />,
+                icon: Users,
                 title: "Family-First Approach",
                 description: "We treat each client like family, providing personalized solutions for your unique needs."
               }
@@ -154,13 +155,26 @@ const Home = () => {
                 className="h-full"
                 delay={0.1 * index}
               >
-                <div className="h-full bg-white rounded-2xl p-6 shadow-[0_0_20px_rgba(249,115,22,0.07)] border border-orange-100 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(249,115,22,0.1)] hover:border-orange-200 hover:translate-y-[-5px]">
-                  <div className="mb-4 p-3 bg-orange-100 rounded-xl inline-block">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <motion.div 
+                  className="h-full bg-white rounded-2xl p-6 shadow-[0_0_20px_rgba(249,115,22,0.07)] border border-orange-100 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(249,115,22,0.1)] hover:border-orange-200 hover:translate-y-[-5px] flex flex-col items-center text-center"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2 }}
+                >
+                  <motion.div 
+                    className={`mb-4 p-4 rounded-full inline-block
+                      ${index === 0 && 'bg-gradient-to-br from-blue-400 to-purple-400'}
+                      ${index === 1 && 'bg-gradient-to-br from-green-400 to-cyan-400'}
+                      ${index === 2 && 'bg-gradient-to-br from-yellow-400 to-red-400'}
+                    `}
+                    animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 + index * 0.5 }}
+                  >
+                    {React.createElement(feature.icon, { className: "h-8 w-8 text-white" })}
+                  </motion.div>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-800">{feature.title}</h3>
                   <p className="text-gray-600">{feature.description}</p>
-                </div>
+                </motion.div>
               </SlideIn>
             ))}
           </div>

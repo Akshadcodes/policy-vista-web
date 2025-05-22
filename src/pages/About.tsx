@@ -1,22 +1,23 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import SectionHeading from '@/components/SectionHeading';
 import { CheckCircle, Award, TrendingUp, Users } from 'lucide-react';
+import { WavyBackground } from '@/components/ui/wavy-background';
+import { motion } from 'framer-motion';
 
 const About = () => {
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-primary/5 py-20 lg:py-28">
-        <div className="container-custom">
+      {/* Hero Section with Wavy Background */}
+      <WavyBackground className="py-20 lg:py-28">
+        <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">About PolicyVista</h1>
-            <p className="text-xl text-muted-foreground">Your trusted partner in insurance solutions since 2005.</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 text-transparent bg-clip-text animate-pulse">About PolicyVista</h1>
+            <p className="text-xl text-muted-foreground animate-fade-in">Your trusted partner in insurance solutions since 2005.</p>
           </div>
         </div>
-      </section>
+      </WavyBackground>
 
       {/* Our Story */}
       <section className="section">
@@ -65,33 +66,49 @@ const About = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: <CheckCircle className="h-10 w-10 text-primary" />,
+                icon: CheckCircle,
                 title: "Integrity",
                 description: "We conduct business with honesty and transparency in every interaction."
               },
               {
-                icon: <Users className="h-10 w-10 text-primary" />,
+                icon: Users,
                 title: "Client-Focused",
                 description: "Our clients' needs and satisfaction are at the center of everything we do."
               },
               {
-                icon: <Award className="h-10 w-10 text-primary" />,
+                icon: Award,
                 title: "Excellence",
                 description: "We strive for excellence in our service, products, and customer support."
               },
               {
-                icon: <TrendingUp className="h-10 w-10 text-primary" />,
+                icon: TrendingUp,
                 title: "Innovation",
                 description: "We continuously improve and adapt to better serve our clients' evolving needs."
               }
             ].map((value, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-soft text-center">
-                <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full inline-block">
-                  {value.icon}
-                </div>
+              <motion.div 
+                key={index} 
+                className="bg-white p-6 rounded-xl shadow-soft text-center border border-gray-200 hover:shadow-lg hover:border-orange-200 transition-all duration-300 cursor-pointer"
+                whileHover={{ scale: 1.05, translateY: -5 }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <motion.div 
+                  className={`mx-auto mb-4 p-3 rounded-full inline-block 
+                    ${index === 0 && 'bg-gradient-to-br from-orange-400 to-pink-400'}
+                    ${index === 1 && 'bg-gradient-to-br from-blue-400 to-violet-400'}
+                    ${index === 2 && 'bg-gradient-to-br from-green-400 to-cyan-400'}
+                    ${index === 3 && 'bg-gradient-to-br from-yellow-400 to-red-400'}
+                  `}
+                  animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <value.icon className="h-10 w-10 text-white" />
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-3">{value.title}</h3>
                 <p className="text-gray-600">{value.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

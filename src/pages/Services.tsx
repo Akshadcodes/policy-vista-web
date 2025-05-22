@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import SectionHeading from '@/components/SectionHeading';
 import ServiceCard from '@/components/ServiceCard';
 import { ShieldCheck, FileCheck, LifeBuoy, Home, DollarSign, CreditCard, Users } from 'lucide-react';
+import { WavyBackground } from '@/components/ui/wavy-background';
+import { motion } from 'framer-motion';
 
 const Services = () => {
   const services = [
@@ -53,17 +55,15 @@ const Services = () => {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-primary/5 py-20 lg:py-28">
-        <div className="container-custom">
+      {/* Hero Section with Wavy Background */}
+      <WavyBackground className="py-20 lg:py-28">
+        <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h1>
-            <p className="text-xl text-muted-foreground">
-              Comprehensive insurance solutions to protect what matters most to you.
-            </p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-500 via-pink-500 to-violet-600 text-transparent bg-clip-text animate-pulse">Our Services</h1>
+            <p className="text-xl text-muted-foreground animate-fade-in">Comprehensive insurance solutions to protect what matters most to you.</p>
           </div>
         </div>
-      </section>
+      </WavyBackground>
 
       {/* Services Overview */}
       <section className="section">
@@ -137,20 +137,38 @@ const Services = () => {
           />
           
           <div className="space-y-6">
-            {services.map((service) => (
-              <div key={service.id} className="border border-gray-200 rounded-xl overflow-hidden">
+            {services.map((service, index) => (
+              <motion.div 
+                key={service.id}
+                className="border border-gray-200 rounded-xl overflow-hidden bg-white/90 hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                whileHover={{ translateY: -5 }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
                 <div className="bg-white p-6">
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <service.icon className="h-6 w-6 text-primary" />
-                    </div>
+                    <motion.div 
+                      className={`p-3 rounded-lg inline-block
+                        ${index === 0 && 'bg-gradient-to-br from-orange-400 to-pink-400'}
+                        ${index === 1 && 'bg-gradient-to-br from-blue-400 to-violet-400'}
+                        ${index === 2 && 'bg-gradient-to-br from-green-400 to-cyan-400'}
+                        ${index === 3 && 'bg-gradient-to-br from-yellow-400 to-red-400'}
+                        ${index === 4 && 'bg-gradient-to-br from-purple-400 to-indigo-400'}
+                        ${index === 5 && 'bg-gradient-to-br from-teal-400 to-lime-400'}
+                      `}
+                      animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    >
+                      <service.icon className="h-6 w-6 text-white" />
+                    </motion.div>
                     <div>
                       <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
                       <p className="text-gray-600 mb-4">{service.description}</p>
                       <h4 className="font-medium mb-2">Key Features:</h4>
                       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {service.features.map((feature, index) => (
-                          <li key={index} className="flex items-center">
+                        {service.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center">
                             <span className="mr-2 text-primary">
                               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -163,7 +181,7 @@ const Services = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -200,11 +218,28 @@ const Services = () => {
                 description: "We provide continuous service and regular policy reviews."
               }
             ].map((process, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-soft">
-                <div className="text-2xl font-bold text-accent mb-4">{process.step}</div>
+              <motion.div 
+                key={index} 
+                className="bg-white p-6 rounded-xl shadow-soft text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                whileHover={{ translateY: -5 }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.15 }}
+              >
+                <motion.div 
+                  className={`text-2xl font-bold mb-4 inline-block 
+                    ${index === 0 && 'bg-gradient-to-br from-orange-500 to-pink-500 text-white p-2 rounded-md'}
+                    ${index === 1 && 'bg-gradient-to-br from-blue-500 to-violet-500 text-white p-2 rounded-md'}
+                    ${index === 2 && 'bg-gradient-to-br from-green-500 to-cyan-500 text-white p-2 rounded-md'}
+                    ${index === 3 && 'bg-gradient-to-br from-yellow-500 to-red-500 text-white p-2 rounded-md'}
+                  `}
+                  animate={{ scale: [1, 1.1, 1], transition: { duration: 1, repeat: Infinity, repeatDelay: 3 + index * 0.5 } }}
+                >
+                  {process.step}
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-3">{process.title}</h3>
                 <p className="text-gray-600">{process.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
