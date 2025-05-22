@@ -7,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 210 50% 98%;
-    --foreground: 222 47% 11%;
+    --background: 30 100% 98%;
+    --foreground: 20 10% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 20 10% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 20 10% 10%;
 
-    --primary: 217 91% 25%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 24 95% 53%;
+    --primary-foreground: 30 100% 98%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 30 10% 94%;
+    --secondary-foreground: 20 10% 10%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 30 10% 94%;
+    --muted-foreground: 20 10% 40%;
 
-    --accent: 45 100% 50%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 35 100% 50%;
+    --accent-foreground: 20 10% 10%;
 
     --destructive: 0 85% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 30 100% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 222 84% 5%;
+    --border: 20 10% 90%;
+    --input: 20 10% 90%;
+    --ring: 24 95% 53%;
 
     --radius: 1rem;
   }
@@ -79,5 +79,17 @@
   
   .card-hover {
     @apply transition-all duration-300 hover:shadow-card hover:translate-y-[-5px];
+  }
+  
+  .insurance-card {
+    @apply bg-white rounded-2xl p-6 shadow-soft border border-orange-100 transition-all duration-300 hover:shadow-card hover:border-orange-200;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
   }
 }
