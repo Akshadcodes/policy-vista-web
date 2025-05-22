@@ -4,8 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import WhatsAppButton from './WhatsAppButton';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTransition, animated } from 'react-spring';
+import { motion } from 'framer-motion';
 
 const Layout = () => {
   const location = useLocation();
@@ -15,26 +14,20 @@ const Layout = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // React Spring page transition
-  const transitions = useTransition(location, {
-    from: { opacity: 0, transform: 'translate3d(0,30px,0)' },
-    enter: { opacity: 1, transform: 'translate3d(0,0,0)' },
-    leave: { opacity: 0, transform: 'translate3d(0,30px,0)' },
-    config: { tension: 280, friction: 60 },
-  });
-  
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      {transitions((style, item) => (
-        <animated.main
-          style={style}
-          className="flex-grow"
-        >
-          <Outlet />
-        </animated.main>
-      ))}
+      <motion.main
+        key={location.pathname}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.3 }}
+        className="flex-grow pt-24"
+      >
+        <Outlet />
+      </motion.main>
 
       <WhatsAppButton />
       <Footer />

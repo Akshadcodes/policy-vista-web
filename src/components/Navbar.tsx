@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, Shield } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useSpring, animated } from 'react-spring';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -45,44 +44,19 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' }
   ];
 
-  const logoSpring = useSpring({
-    transform: isScrolled ? 'scale(0.9)' : 'scale(1)',
-    config: { tension: 200, friction: 20 },
-  });
-
-  const navbarSpring = useSpring({
-    backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0)',
-    boxShadow: isScrolled ? '0 4px 20px rgba(249, 115, 22, 0.1)' : '0 0px 0px rgba(0, 0, 0, 0)',
-    padding: isScrolled ? '0.75rem 0' : '1.25rem 0',
-    config: { tension: 300, friction: 30 },
-  });
-
   return (
-    <animated.nav 
-      style={navbarSpring}
-      className="fixed top-0 w-full z-50 backdrop-blur-sm transition-all duration-300"
+    <nav 
+      className={`fixed top-0 w-full z-50 backdrop-blur-sm transition-all duration-300 ${
+        isScrolled ? 'bg-white/95 shadow-soft py-3' : 'bg-white/0 py-5'
+      }`}
     >
       <div className="container-custom flex items-center justify-between">
-        <NavLink to="/" className="flex items-center gap-2 text-orange-500">
-          <animated.div
-            style={logoSpring}
-            className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 flex items-center justify-center shadow-md"
-          >
-            <motion.div 
-              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-              transition={{ duration: 0.5 }}
-            >
-              <Shield className="h-6 w-6 text-white" />
-            </motion.div>
-          </animated.div>
-          <motion.span 
-            initial={{ opacity: 0, x: -5 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl font-bold font-heading"
-          >
-            SKIS
-          </motion.span>
+        <NavLink to="/" className="flex items-center gap-2">
+          <img 
+            src="/lovable-uploads/7fd7c862-0f5e-4244-b741-ccb7fbe758c2.png" 
+            alt="Shri Krishna Insurance Services" 
+            className="h-12 md:h-14"
+          />
         </NavLink>
         
         {/* Mobile menu button - only visible on mobile */}
@@ -92,7 +66,7 @@ const Navbar = () => {
           aria-label="Toggle menu"
           whileTap={{ scale: 0.9 }}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={24} className="text-orange-500" /> : <Menu size={24} className="text-orange-500" />}
         </motion.button>
 
         {/* Desktop Navigation - always visible on desktop */}
@@ -134,7 +108,7 @@ const Navbar = () => {
           >
             <Button 
               size="lg" 
-              className="bg-orange-500 hover:bg-orange-600 shadow-[0_4px_14px_0_rgb(249_115_22_/_30%)] transition-all duration-300 hover:shadow-[0_6px_20px_rgb(249_115_22_/_40%)] hover:translate-y-[-2px]"
+              className="bg-orange-500 hover:bg-orange-600 shadow-button transition-all duration-300 hover:shadow-hover hover:translate-y-[-2px]"
             >
               Get a Quote
             </Button>
@@ -152,11 +126,12 @@ const Navbar = () => {
         >
           <div className="p-5 flex flex-col h-full">
             <div className="flex justify-between items-center">
-              <NavLink to="/" className="flex items-center gap-2 text-orange-500" onClick={toggleMenu}>
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 flex items-center justify-center">
-                  <Shield className="h-6 w-6 text-white" />
-                </div>
-                <span className="text-xl font-bold">SKIS</span>
+              <NavLink to="/" onClick={toggleMenu}>
+                <img 
+                  src="/lovable-uploads/7fd7c862-0f5e-4244-b741-ccb7fbe758c2.png" 
+                  alt="Shri Krishna Insurance Services" 
+                  className="h-10"
+                />
               </NavLink>
               <motion.button 
                 onClick={toggleMenu} 
@@ -205,7 +180,7 @@ const Navbar = () => {
           </div>
         </motion.div>
       </div>
-    </animated.nav>
+    </nav>
   );
 };
 
