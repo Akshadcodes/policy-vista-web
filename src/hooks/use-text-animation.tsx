@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import React from 'react';
 
@@ -188,8 +187,8 @@ export const FadeIn = ({
   );
 };
 
-// Create a floating animation
-export const FloatAnimation = ({ 
+// Create a floating animation (renamed to match import in Home.tsx)
+export const FloatingAnimation = ({ 
   children, 
   className = "", 
   duration = 3,

@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -7,8 +6,7 @@ import SectionHeading from '@/components/SectionHeading';
 import ServiceCard from '@/components/ServiceCard';
 import TestimonialCard from '@/components/TestimonialCard';
 import { useSpring, animated, useTrail } from 'react-spring';
-import { AnimatedWords, FadeIn, SlideIn } from '@/hooks/use-text-animation';
-import { FloatingAnimation } from '@/hooks/use-text-animation';
+import { AnimatedWords, FadeIn, SlideIn, FloatAnimation } from '@/hooks/use-text-animation';
 import { BackgroundGradientAnimation } from '@/components/ui/gradient-animations';
 import { WavyBackground } from '@/components/ui/wavy-background';
 import { HeroParallax } from '@/components/ui/hero-parallax';
@@ -91,7 +89,7 @@ const Home = () => {
                 >
                   Explore Plans
                   <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
                   </svg>
                 </Button>
               </animated.div>
@@ -111,7 +109,7 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-12">
             {categoryTrail.map((style, i) => (
               <animated.div key={i} style={style}>
-                <FloatingAnimation 
+                <FloatAnimation 
                   className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   duration={3 + i * 0.5}
                   distance={10}
@@ -120,7 +118,7 @@ const Home = () => {
                     {insuranceCategories[i].icon}
                   </div>
                   <h3 className="font-medium">{insuranceCategories[i].title}</h3>
-                </FloatingAnimation>
+                </FloatAnimation>
               </animated.div>
             ))}
           </div>
@@ -186,19 +184,16 @@ const Home = () => {
                 title="Life Insurance" 
                 description="Protect your family's financial future with our comprehensive life insurance plans."
                 icon={ShieldCheck}
-                className="bg-white/70 backdrop-blur-sm hover:bg-white/90"
               />
               <ServiceCard 
                 title="Health Insurance" 
                 description="Get access to quality healthcare with our flexible health insurance policies."
                 icon={LifeBuoy}
-                className="bg-white/70 backdrop-blur-sm hover:bg-white/90"
               />
               <ServiceCard 
                 title="Property Insurance" 
                 description="Safeguard your home and belongings against unexpected damages and losses."
                 icon={FileCheck}
-                className="bg-white/70 backdrop-blur-sm hover:bg-white/90"
               />
             </div>
             
