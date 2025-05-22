@@ -1,13 +1,41 @@
 
 import React from 'react';
+import { useSpring, animated } from 'react-spring';
 
 const WhatsAppButton = () => {
+  const [spring, api] = useSpring(() => ({
+    scale: 1,
+    shadow: '0 4px 14px rgba(37, 211, 102, 0.4)',
+  }));
+
+  const onMouseEnter = () => {
+    api.start({
+      scale: 1.1,
+      shadow: '0 8px 24px rgba(37, 211, 102, 0.6)',
+      config: { tension: 300, friction: 10 },
+    });
+  };
+
+  const onMouseLeave = () => {
+    api.start({
+      scale: 1,
+      shadow: '0 4px 14px rgba(37, 211, 102, 0.4)',
+      config: { tension: 300, friction: 10 },
+    });
+  };
+
   return (
-    <a 
+    <animated.a 
       href="https://wa.me/1234567890" 
       target="_blank" 
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:bg-[#128C7E] transition-all duration-300 hover:scale-110"
+      className="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full"
+      style={{
+        boxShadow: spring.shadow,
+        transform: spring.scale.to(s => `scale(${s})`),
+      }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       aria-label="Chat on WhatsApp"
     >
       <svg 
@@ -23,7 +51,7 @@ const WhatsAppButton = () => {
       >
         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
       </svg>
-    </a>
+    </animated.a>
   );
 };
 
