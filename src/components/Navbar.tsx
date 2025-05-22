@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -61,18 +60,10 @@ const Navbar = () => {
     >
       <div className="container-custom flex items-center justify-between">
         <NavLink to="/" className="flex items-center gap-2">
-          <motion.img 
-            src="/lovable-uploads/7fd7c862-0f5e-4244-b741-ccb7fbe758c2.png" 
-            alt="Shri Krishna Insurance Services" 
+          <img 
+            src="/SKIS-uploads/logo.png" 
+            alt="SKIS - SHRI KRISHNA INSURANCE SERVICE" 
             className="h-12 md:h-14"
-            initial={{ rotate: 0 }}
-            animate={{ rotate: [0, 5, 0, -5, 0] }}
-            transition={{ 
-              duration: 5, 
-              ease: "easeInOut", 
-              repeat: Infinity, 
-              repeatDelay: 5 
-            }}
           />
         </NavLink>
         
@@ -171,8 +162,8 @@ const Navbar = () => {
             <div className="flex justify-between items-center">
               <NavLink to="/" onClick={toggleMenu}>
                 <img 
-                  src="/lovable-uploads/7fd7c862-0f5e-4244-b741-ccb7fbe758c2.png" 
-                  alt="Shri Krishna Insurance Services" 
+                  src="/SKIS-uploads/logo.png" 
+                  alt="SKIS - SHRI KRISHNA INSURANCE SERVICE" 
                   className="h-10"
                 />
               </NavLink>
