@@ -24,9 +24,9 @@ const About = () => {
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
+              <h2 className="text-3xl font-bold mb-6">Our Story </h2>
               <p className="text-gray-600 mb-4">
-                Founded in 2005, PolicyVista began with a simple mission: to make insurance accessible, understandable, and beneficial for everyone. We recognized that many people find insurance confusing and overwhelming, so we set out to change that perception.
+                Founded in 2010, PolicyVista began with a simple mission: to make insurance accessible, understandable, and beneficial for everyone. We recognized that many people find insurance confusing and overwhelming, so we set out to change that perception.
               </p>
               <p className="text-gray-600 mb-4">
                 Our founder, John Smith, had experienced firsthand the challenges of navigating insurance claims after a personal loss. This experience inspired him to create a company that would prioritize transparency, simplicity, and customer service.

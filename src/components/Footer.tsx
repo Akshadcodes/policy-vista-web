@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
@@ -74,7 +73,7 @@ const Footer = () => {
         gradientBackgroundStart="rgb(255 237 213)"
         gradientBackgroundEnd="rgb(254 215 170)"
       >
-        <div className="container-custom pt-16 pb-8 relative z-20">
+        <div className="container-custom pt-16 pb-8 relative z-20 md:px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Company Info */}
             <FadeIn delay={0.1} className="w-full">
